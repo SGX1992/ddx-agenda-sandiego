@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no,date=no,address=no,email=no">
+<meta name="theme-color" content="#050505">
+<title>DDX San Diego Agenda</title>
+<meta name="description" content="The DDX San Diego programme for Thursday 17 September 2026 at UC San Diego Park & Market: every talk, panel, workshop and table talk, with times, rooms and speaker details.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="DDX San Diego — Agenda">
+<meta property="og:description" content="Thursday 17 September 2026 · UC San Diego Park & Market. Every talk, panel, workshop and table talk, with times, rooms and who is on.">
+<meta property="og:url" content="https://agenda-sandiego.ddxconference.com/">
+<meta property="og:image" content="https://agenda-sandiego.ddxconference.com/assets/img/bg/park-market.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="apple-touch-icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css?v=20260917072543">
+</head>
+<body>
+
+<!-- Pinned. The mark, and on the day a live clock that jumps to what is on now. -->
+<header class="top">
+  <div class="top__in">
+    <a href="https://www.ddxconference.com/sandiego" aria-label="DDX San Diego on ddxconference.com"><img src="assets/img/ddx-wordmark.png" alt="DDX" class="brand-mark"></a>
+    <span class="top__title">San Diego · Agenda</span>
+    <button class="now" id="nowBtn" type="button" hidden><i></i><span id="nowLabel">Now</span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero__img" src="assets/img/bg/park-market.jpg" alt="" width="1280" height="855" fetchpriority="high">
+  <div class="wrap hero__body">
+    <p class="eyebrow" style="--i:0"><i></i><span>Agenda</span><span>Thu 17 Sep 2026</span></p>
+    <h1 style="--i:1">DDX<br>San<br>Diego</h1>
+    <p class="hero__sub" style="--i:2">
+      <b>UC San Diego Park &amp; Market</b><br>
+      <a href="https://maps.google.com/?q=UC+San+Diego+Park+%26+Market,+1100+Market+St,+San+Diego,+CA+92101" target="_blank" rel="noopener">1100 Market St, San Diego</a>
+      · Doors 9:00 AM
+    </p>
+  </div>
+</section>
+
+<!-- Room filter. Sticky under the header, scrolls sideways on a phone. -->
+<nav class="chips" id="chips" aria-label="Filter by room">
+  <div class="chips__in">
+    <button type="button" class="chip is-on" data-filter="all" aria-pressed="true">All</button>
+    <button type="button" class="chip" data-filter="theatre" aria-pressed="false">Guggenheim</button>
+    <button type="button" class="chip" data-filter="forum" aria-pressed="false">Forum</button>
+    <button type="button" class="chip" data-filter="exec" aria-pressed="false">Executive</button>
+    <button type="button" class="chip" data-filter="tables" aria-pressed="false">Table Talks</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section class="day" id="day" aria-label="Conference day"></section>
+
+  <p class="hint">Tap a session for what it is about and who is on. Times are San Diego time. Programme as published on <a href="https://www.ddxconference.com/sd-agenda">ddxconference.com</a>; rooms and times can shift on the day.</p>
+
+  <footer class="foot">
+    <a href="https://www.ddxconference.com" aria-label="DDX"><img src="assets/img/ddx-wordmark.png" alt="DDX" class="brand-mark"></a>
+    <div class="foot__links">
+      <a href="https://side-sandiego.ddxconference.com/">Side events</a>
+      <a href="https://share.ddxconference.com/?edition=san-diego">“I am going” post</a>
+      <a href="https://www.ddxconference.com/sandiego">ddxconference.com/sandiego</a>
+    </div>
+  </footer>
+</main>
+
+<script type="module" src="assets/js/main.js?v=20260917072543"></script>
+</body>
+</html>

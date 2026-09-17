@@ -1,0 +1,286 @@
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+
+/* DDX chrome, same as the side-event page and the poster tool: near-black,
+   hairlines for structure, one yellow. Written for a phone held in one hand
+   in a conference lobby — everything else is layered on above 760px. */
+:root{
+  --bg:#050505;
+  --card:#0B0B0B;
+  --surface:#0E0E0E;
+  --surface-hi:#171717;
+  --line:#242424;
+  --line-soft:#1A1A1A;
+  --accent:#FFF204;
+  --accent-rgb:255,242,4;
+  --text:#ffffff;
+  --text-dim:#9A9A9A;
+  --text-faint:#5C5C5C;
+  --font:"Helvetica Neue",Inter,Helvetica,Arial,sans-serif;
+  --measure:1100px;
+  --gutter:clamp(16px,4vw,56px);
+  --top-h:56px;
+  --chips-h:52px;
+  color-scheme:dark;
+}
+
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top-h) + var(--chips-h) + 12px)}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100%;max-width:100%;overflow-x:clip;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.wrap{max-width:var(--measure);margin:0 auto;padding:0 var(--gutter)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---------- pinned top bar ---------- */
+.top{
+  position:sticky;top:0;z-index:40;height:var(--top-h);
+  background:rgba(5,5,5,.82);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  padding-top:env(safe-area-inset-top);
+}
+.top__in{max-width:var(--measure);margin:0 auto;height:100%;padding:0 var(--gutter);display:flex;align-items:center;gap:12px}
+.top__in>a{flex:0 0 auto;display:block}
+.brand-mark{width:56px;max-width:none;height:auto}
+.top__title{font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--text-dim);white-space:nowrap}
+/* On a narrow phone the mark and the live clock are what matter. */
+@media (max-width:479px){.top__title{display:none}}
+.now{
+  margin-left:auto;display:inline-flex;align-items:center;gap:8px;
+  padding:8px 13px;border-radius:999px;border:1px solid rgba(var(--accent-rgb),.5);
+  background:rgba(var(--accent-rgb),.1);color:var(--accent);
+  font-size:13px;font-weight:600;letter-spacing:.01em;white-space:nowrap;font-variant-numeric:tabular-nums;
+}
+.now i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(var(--accent-rgb),.6);animation:pulse 2s ease-out infinite}
+.now:active{transform:scale(.97)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),.55)}100%{box-shadow:0 0 0 9px rgba(var(--accent-rgb),0)}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;min-height:min(62vh,520px)}
+.hero__img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 55%;transform:scale(1.04)}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(5,5,5,.55) 0%,rgba(5,5,5,.15) 35%,rgba(5,5,5,.55) 70%,var(--bg) 100%);
+}
+.hero__body{width:100%;padding-top:48px;padding-bottom:26px}
+.eyebrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--accent)}
+.eyebrow i{display:inline-block;width:22px;height:2px;background:var(--accent)}
+.eyebrow span+span{color:rgba(255,255,255,.78)}
+.hero h1{margin-top:14px;font-size:clamp(56px,17vw,120px);line-height:.88;font-weight:700;letter-spacing:-.04em;text-transform:uppercase}
+.hero__sub{margin-top:16px;font-size:15px;line-height:1.5;color:rgba(255,255,255,.82)}
+.hero__sub b{color:#fff;font-weight:600;font-size:16px}
+.hero__sub a{color:rgba(255,255,255,.82);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.28)}
+.hero__sub a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* ---------- room chips ---------- */
+.chips{
+  position:sticky;top:var(--top-h);z-index:30;height:var(--chips-h);
+  background:rgba(5,5,5,.86);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.chips__in{
+  max-width:var(--measure);margin:0 auto;height:100%;padding:0 var(--gutter);
+  display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);
+}
+.chips__in::-webkit-scrollbar{display:none}
+.chip{
+  flex:0 0 auto;padding:8px 14px;border-radius:999px;border:1px solid var(--line);
+  font-size:13.5px;font-weight:600;color:var(--text-dim);background:var(--surface);white-space:nowrap;
+  transition:color .15s,border-color .15s,background .15s;
+}
+.chip:last-child{margin-right:24px}
+.chip.is-on{background:var(--accent);border-color:var(--accent);color:#0B0B0B}
+.chip:not(.is-on):hover{color:#fff;border-color:#3A3A3A}
+
+/* ---------- day ---------- */
+.day{padding-top:8px}
+.daylabel{
+  display:flex;align-items:center;gap:12px;margin:22px 0 10px;
+  font-size:11.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--text-faint);
+}
+.daylabel::after{content:"";flex:1;height:1px;background:var(--line-soft)}
+.daylabel b{color:#fff;font-weight:600}
+
+/* A slot is one start time and everything that begins then. The time sits
+   on its own rule; the cards stack under it on a phone. */
+.slot{position:relative;padding:18px 0 6px}
+.slot+.slot{border-top:1px solid var(--line-soft)}
+.slot__time{
+  display:flex;align-items:baseline;gap:10px;margin-bottom:12px;
+  font-size:22px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1;
+}
+.slot__time small{font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--text-faint)}
+.slot__live{
+  display:none;align-items:center;gap:6px;margin-left:auto;
+  font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);
+}
+.slot__live i{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-out infinite}
+.slot.is-live .slot__live{display:inline-flex}
+.slot.is-live .slot__time{color:var(--accent)}
+.slot__cards{display:grid;gap:10px}
+.slot.is-past{opacity:.55}
+.slot.is-past:hover,.slot.is-past:focus-within{opacity:1}
+
+/* ---------- session card ----------
+   Pure black, not the page's near-black: the speaker portraits were cut out
+   onto #000, and on anything lighter every one of them shows its square. */
+.s{background:#000;border:1px solid var(--line);border-radius:16px;overflow:hidden;position:relative}
+.s.is-live{border-color:rgba(var(--accent-rgb),.55);box-shadow:0 0 0 1px rgba(var(--accent-rgb),.25),0 18px 50px -24px rgba(var(--accent-rgb),.35)}
+.s__head{
+  display:grid;grid-template-columns:1fr auto;grid-template-areas:"meta chev" "title chev" "who who";
+  gap:8px 12px;width:100%;padding:16px 16px 16px;text-align:left;align-items:start;
+}
+.s__head:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;border-radius:16px}
+.s__meta{grid-area:meta;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:11.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--text-faint);font-variant-numeric:tabular-nums}
+.s__kind{color:var(--accent)}
+.s__meta .dot{width:3px;height:3px;border-radius:50%;background:var(--text-faint)}
+.s__room{color:var(--text-dim)}
+.s__title{grid-area:title;font-size:19px;font-weight:700;letter-spacing:-.025em;line-height:1.15;text-wrap:balance}
+.s__title small{display:block;margin-top:4px;font-size:14px;font-weight:500;letter-spacing:0;color:var(--text-dim)}
+.s__chev{grid-area:chev;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--text-dim);margin-top:2px}
+.s__chev svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s cubic-bezier(.22,.8,.25,1)}
+.s.is-open .s__chev{border-color:var(--accent);color:var(--accent)}
+.s.is-open .s__chev svg{transform:rotate(180deg)}
+.s--static .s__chev{display:none}
+.s--static .s__head{cursor:default}
+
+/* Who's on: portraits stacked, names beside. */
+.s__who{grid-area:who;display:flex;align-items:center;gap:12px;min-width:0}
+.faces{display:flex;flex:0 0 auto}
+.ava{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#000;border:2px solid #000;flex:0 0 auto}
+.faces .ava+.ava{margin-left:-12px}
+.ava--wide{width:66px;height:46px;border-radius:10px;border:0}
+.ava--blank{display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--text-dim);background:var(--surface-hi)}
+.s__names{min-width:0;font-size:14px;line-height:1.3}
+.s__names b{font-weight:600;color:#fff}
+.s__names small{display:block;font-size:12.5px;color:var(--text-dim);overflow:hidden;text-overflow:ellipsis}
+.s__names .mod{color:var(--text-faint)}
+
+/* Partner marks instead of faces (the happy hour). */
+.s__logos{grid-area:who;display:flex;align-items:center;gap:16px;padding:6px 0 2px;color:#fff}
+.s__logos img{width:auto;max-width:140px}
+.s__logos .sep{width:1px;height:22px;background:rgba(255,255,255,.3)}
+
+/* The fold. Grid rows animate 0fr → 1fr, which is the one height animation
+   that needs no measuring. */
+.s__more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .38s cubic-bezier(.22,.8,.25,1)}
+.s__more>div{overflow:hidden;min-height:0}
+.s.is-open .s__more{grid-template-rows:1fr}
+.s__more-in{padding:2px 16px 18px;border-top:1px solid var(--line-soft);display:flex;flex-direction:column;gap:16px}
+.s__more-in>*:first-child{margin-top:14px}
+.label{font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--text-faint);margin-bottom:8px}
+.about{font-size:15px;line-height:1.55;color:rgba(255,255,255,.86)}
+.about p+p{margin-top:10px}
+.groupshot{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px;background:#000}
+
+.people{display:flex;flex-direction:column;gap:14px}
+.person{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start}
+.person .ava{width:44px;height:44px;border:0}
+.person__name{font-size:15px;font-weight:600;line-height:1.25}
+.person__name small{display:block;font-size:13px;font-weight:400;color:var(--text-dim);margin-top:1px}
+.person__name .tag{display:inline-block;margin-left:6px;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);vertical-align:middle}
+.bio{margin-top:7px;font-size:14px;line-height:1.5;color:var(--text-dim);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.bio.is-full{display:block;-webkit-line-clamp:unset}
+.more{margin-top:5px;font-size:13px;font-weight:600;color:var(--accent);padding:2px 0}
+.src{font-size:11.5px;color:var(--text-faint)}
+.s__link{
+  display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
+  padding:11px 16px;border-radius:999px;background:var(--accent);color:#0B0B0B;font-size:14px;font-weight:600;text-decoration:none;
+}
+.s__link svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.s__link:hover{background:#fff}
+
+/* Breaks. A quieter row, and the table talks inside it. */
+.b{background:#000;border:1px solid var(--line-soft);border-radius:16px;overflow:hidden}
+.b__head{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:center;padding:14px 16px}
+.b__icon{grid-row:1/3;width:36px;height:36px;border-radius:50%;background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.3);display:grid;place-items:center;color:var(--accent)}
+.b__icon svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.b__title{font-size:16px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.b__sub{font-size:13px;color:var(--text-dim)}
+.b__sub .dot{display:inline-block;width:3px;height:3px;border-radius:50%;background:var(--text-faint);vertical-align:middle;margin:0 6px}
+.b.is-live{border-color:rgba(var(--accent-rgb),.5)}
+.tables{border-top:1px solid var(--line-soft);padding:12px 12px 12px}
+.tables__label{font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);padding:2px 4px 8px}
+.tables__label span{color:var(--text-faint);letter-spacing:.1em;text-transform:none;font-weight:500;margin-left:8px}
+.t{border:0;border-radius:0;overflow:hidden;background:none}
+.t+.t{border-top:1px solid var(--line-soft)}
+.t__head{display:grid;grid-template-columns:22px 36px minmax(0,1fr) 26px;gap:10px;align-items:center;width:100%;padding:10px 4px;text-align:left}
+.t__head:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;border-radius:8px}
+.t__n{font-size:12px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.t .ava{width:36px;height:36px;border:0}
+.t__text{min-width:0;display:block}
+.t__title{display:block;font-size:14.5px;font-weight:600;line-height:1.25;letter-spacing:-.01em}
+.t__host{display:block;font-size:12.5px;color:var(--text-dim);margin-top:2px}
+.t .s__chev{grid-area:auto;width:26px;height:26px;margin:0}
+.t.s--static .s__chev{visibility:hidden}
+.t .s__more-in{padding:2px 4px 12px 68px;border-top:0}
+.t .s__more-in>*:first-child{margin-top:6px}
+
+/* The happy hour: a photo strip on top. */
+.s--photo .s__photo{position:relative;aspect-ratio:2.4/1;overflow:hidden;background:#111}
+.s--photo .s__photo img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.s--photo .s__photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.05) 0%,rgba(11,11,11,.9) 100%)}
+.s--photo .s__photo .s__meta{position:absolute;left:16px;bottom:12px;color:#fff}
+.s--photo .s__photo .s__kind{color:var(--accent)}
+.s--photo .s__head{grid-template-areas:"title chev" "who who"}
+.s--photo .s__head .s__meta{display:none}
+
+/* filter: hidden cards, empty slots */
+.is-filtered{display:none}
+
+.hint{margin-top:34px;font-size:13px;line-height:1.5;color:var(--text-faint);max-width:60ch}
+.hint a{color:var(--text-dim)}
+
+/* ---------- footer ---------- */
+.foot{margin-top:40px;padding:24px 0 calc(36px + env(safe-area-inset-bottom));border-top:1px solid var(--line);display:flex;flex-direction:column;gap:16px;font-size:13px}
+.foot__links{display:flex;flex-wrap:wrap;gap:8px 18px}
+.foot a{color:#fff;text-decoration:none}
+.foot a:hover{color:var(--accent)}
+a[x-apple-data-detectors]{color:inherit!important;text-decoration:none!important}
+
+/* ---------- wider than a phone ---------- */
+@media (min-width:760px){
+  :root{--top-h:64px;--chips-h:56px}
+  .brand-mark{width:68px}
+  .hero{min-height:440px}
+  .hero__body{padding-top:80px;padding-bottom:40px;display:grid;grid-template-columns:auto 1fr;align-items:end;gap:0 48px}
+  .hero .eyebrow{grid-column:1/-1}
+  .hero h1{font-size:clamp(88px,11vw,150px)}
+  .hero__sub{margin-top:0;padding-bottom:10px;font-size:16px}
+  .chip{padding:9px 16px;font-size:14px}
+  .slot{display:grid;grid-template-columns:96px 1fr;gap:0 24px;padding:24px 0 14px}
+  .slot__time{flex-direction:column;align-items:flex-start;gap:6px;font-size:26px;margin:0;position:sticky;top:calc(var(--top-h) + var(--chips-h) + 24px)}
+  .slot__live{margin-left:0}
+  .slot__cards{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;align-items:start}
+  .slot__cards>.b{grid-column:1/-1}
+  .slot__cards>.s--photo{grid-column:1/-1}
+  .s__head{padding:18px 18px 18px}
+  .s__title{font-size:20px}
+  .s__more-in{padding:2px 18px 20px}
+  .tables{display:grid;grid-template-columns:repeat(3,1fr);gap:0 16px;padding:14px 16px 10px}
+  .tables__label{grid-column:1/-1}
+  .t,.t+.t{border-top:1px solid var(--line-soft)}
+  .t .s__more-in{padding-left:4px}
+  .s--photo .s__photo{aspect-ratio:4/1}
+  .foot{flex-direction:row;align-items:center;justify-content:space-between}
+  .daylabel{margin-top:30px}
+}
+
+/* ---------- motion ---------- */
+@media (prefers-reduced-motion:no-preference){
+  @keyframes rise{from{opacity:0;transform:translate3d(0,14px,0)}to{opacity:1;transform:none}}
+  @keyframes drift{from{transform:scale(1.04)}to{transform:scale(1.1)}}
+  .hero__img{animation:drift 16s ease-out both}
+  .hero__body>*{animation:rise .55s cubic-bezier(.22,.8,.25,1) both;animation-delay:calc(var(--i,0)*80ms + 120ms)}
+  .s,.b{transition:border-color .2s,box-shadow .3s,transform .25s cubic-bezier(.22,.8,.25,1)}
+  .s__head:active{transform:scale(.995)}
+  .s__chev{transition:border-color .2s,color .2s}
+  .s:hover{border-color:#3A3A3A}
+  .s.is-live:hover{border-color:var(--accent)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .now i,.slot__live i{animation:none}
+  .s__more{transition:none}
+}
